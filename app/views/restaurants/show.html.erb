@@ -1,0 +1,35 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(http://source.unsplash.com/featured/?<%= @restaurant.category? ? @restaurant.category.downcase : 'food' %>&<%= rand(1000) %>/800x333);">
+  <div class="container">
+  </div>
+</div>
+<div class="container mt-2">
+  <div class="row justify-content-around">
+    <div class="col-12 col-sm-8">
+      <p>
+        <%= link_to '< Restaurants', restaurants_path, class: 'btn-light opacity-25 text-decoration-none' %>
+      </p>
+      <div class="d-flex align-items-center">
+        <h1 class="m-0"><%= @restaurant.name %></h1>
+        <p class="m-0 ms-2" style="font-size: 0.8em">
+          <% @restaurant.rating.times do %>
+            <i class="fas fa-star"></i>
+          <% end %>
+          <% (5 - @restaurant.rating).times do %>
+            <i class="far fa-star"></i>
+          <% end %>
+        </p>
+      </div>
+      <p class="fw-lighter opacity-75 mt-2"><%= Faker::Restaurant.description  %></p>
+      <h3>Reviews</h3>
+      <ul>
+        <% @restaurant.reviews.each do |review| %>
+          <li><%= review.content %> <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Delete review?' } %></li>
+        <% end %>
+      </ul>
+      <p><%= link_to 'Add a Review', new_restaurant_review_path(@restaurant), class: 'btn btn-light' %></p>
+    </div>
+    <div class="col-12 col-sm-4 mt-5">
+      <%= render 'restaurants/side_info' %>
+    </p>
+  </div>
+</div>

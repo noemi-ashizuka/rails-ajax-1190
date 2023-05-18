@@ -1,0 +1,8 @@
+1. generate the model (created migration && model)
+2. check the migration
+3. run the migrations
+4. check the model (add associtions and validations)
+5. crash testing our model
+6. route
+7. controller w/action
+8. view

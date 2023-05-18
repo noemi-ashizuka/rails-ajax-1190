@@ -1,0 +1,13 @@
+<div class="container mt-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Top Restaurants</h1>
+    <%= link_to new_restaurant_path, class: 'text-dark text-decoration-none' do %>
+      <i class="fa-solid fa-plus"></i>
+    <% end %>
+  </div>
+  <div class="cards">
+    <% @restaurants.each do |restaurant| %>
+      <%= render 'restaurants/card', restaurant: restaurant %>
+    <% end %>
+  </div>
+</div>

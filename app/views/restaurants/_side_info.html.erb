@@ -1,0 +1,30 @@
+<div class="position-relative">
+  <p>
+    <%= image_tag "https://kitt.lewagon.com/placeholder/users/#{@restaurant.user.username}", class: 'avatar border border-white' %>
+    <%= @restaurant.user.username %>
+  </p>
+  <p class="fw-lighter opacity-75">
+    <i class="fas fa-map-pin"></i><span class='ms-2'><%= @restaurant.address %></span>
+  </p>
+  <p class="fw-lighter opacity-75">
+    <% rand(2..5).times do %>
+      <i class="fas fa-dollar-sign"></i>
+    <% end %>
+  </p>
+  <p class="fw-lighter opacity-75">
+    <i class="fas fa-utensils"></i><span class='ms-2'><%= @restaurant.category %></span>
+  </p>
+  <p><%#= link_to @restaurant.chef_name, chef_restaurant_path(@restaurant)  %></p>
+  <div class="d-flex">
+    <% if policy(@restaurant).edit? %>
+      <%= link_to edit_restaurant_path(@restaurant), class: 'text-dark text-decoration-none' do %>
+        <i class="fas fa-pencil-alt mx-1"></i>
+      <% end %>
+    <% end %>
+    <% if policy(@restaurant).destroy? %>
+      <%= link_to restaurant_path(@restaurant), class: 'text-dark text-decoration-none', data: { turbo_method: :delete, turbo_confirm: "Do you want to delete #{@restaurant.name}" } do %>
+        <i class="fas fa-trash mx-1"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

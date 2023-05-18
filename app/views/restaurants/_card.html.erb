@@ -1,0 +1,7 @@
+<div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(http://source.unsplash.com/featured/?<%=restaurant.category ? restaurant.category.downcase : 'food' %>&<%= rand(1000) %>)">
+  <% if show_owner %>
+    <%= image_tag "https://kitt.lewagon.com/placeholder/users/#{restaurant.user.username}", class: 'avatar position-absolute top-0 end-0 m-2 border border-white' %>
+  <% end %>
+  <p class='m-0 p-2'><%= restaurant.name %></p>
+  <%= link_to "", restaurant_path(restaurant), class: "card-link"  %>
+</div>
