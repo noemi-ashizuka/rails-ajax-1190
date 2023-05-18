@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
     # what does the form need? review AND restaurant
     @review = Review.new
     @restaurant = Restaurant.find(params[:restaurant_id])
+    authorize @review
   end
 
   def create
@@ -10,6 +11,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     # i have to give the review the restaurant
     @review.restaurant = @restaurant
+    authorize @review
     if @review.save
       redirect_to restaurant_path(@restaurant)
     else
@@ -21,6 +23,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
+    authorize @review
     redirect_to restaurant_path(@review.restaurant), status: :see_other
   end
 

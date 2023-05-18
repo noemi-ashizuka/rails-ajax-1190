@@ -20,13 +20,25 @@
         </p>
       </div>
       <p class="fw-lighter opacity-75 mt-2"><%= Faker::Restaurant.description  %></p>
-      <h3>Reviews</h3>
-      <ul>
-        <% @restaurant.reviews.each do |review| %>
-          <li><%= review.content %> <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Delete review?' } %></li>
+
+      <h3><%= pluralize @restaurant.reviews.size, "review" %></h3>
+
+      <div>
+        <% if @restaurant.reviews.blank? %>
+          Be the first to leave a review for <%= @restaurant.name %>
+        <% else %>
+          <% @restaurant.reviews.each do |review| %>
+            <li><%= review.content %> <%= link_to 'x', review_path(review), data: { turbo_method: :delete, turbo_confirm: 'Delete review?' } %></li>
+          <% end %>
         <% end %>
-      </ul>
-      <p><%= link_to 'Add a Review', new_restaurant_review_path(@restaurant), class: 'btn btn-light' %></p>
+      </div>
+      
+      <%= simple_form_for([@restaurant, @review]) do |f| %>
+        <%= f.input :content %>
+        <%= f.button :submit %>
+      <% end %>
+
+<%= link_to "Back to all restaurants", restaurants_path %>
     </div>
     <div class="col-12 col-sm-4 mt-5">
       <%= render 'restaurants/side_info' %>
