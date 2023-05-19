@@ -12,11 +12,24 @@ class ReviewsController < ApplicationController
     # i have to give the review the restaurant
     @review.restaurant = @restaurant
     authorize @review
-    if @review.save
-      redirect_to restaurant_path(@restaurant)
-    else
-      # if doesnt save, show the 'new' form again
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @review.save
+        format.html { redirect_to restaurant_path(@restaurant) }
+        format.json do 
+          render json: {
+            review_html: render_to_string(partial: "reviews/review", formats: :html, locals: { review: @review }),
+            form_html: render_to_string(partial: "reviews/new", formats: :html, locals: { restaurant: @review.restaurant, review: Review.new }),
+        }.to_json
+        end
+      else
+        # if doesnt save, show the 'new' form again
+        format.html { render :new, status: :unprocessable_entity }
+        format.json do
+          render json: {
+            form_html: render_to_string(partial: "reviews/new", formats: :html, locals: { restaurant: @review.restaurant, review: @review }),
+        }.to_json
+        end
+      end
     end
   end
 
